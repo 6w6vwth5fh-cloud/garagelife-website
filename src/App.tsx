@@ -169,8 +169,8 @@ const Hero = ({ lang }: { lang: Language }) => {
            style={{ backgroundImage: 'radial-gradient(#1a1a1a 1.2px, transparent 1.5px)', backgroundSize: '22px 22px' }} />
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr,420px] items-center gap-12 lg:gap-20">
-          
+        <div className="grid grid-cols-1 items-center">
+
           {/* Text Content */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
@@ -205,30 +205,6 @@ const Hero = ({ lang }: { lang: Language }) => {
                 {t.hero_cta2}
               </a>
             </div>
-          </motion.div>
-
-          {/* Visual Content (The Badge) */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            className="relative w-full max-w-[280px] sm:max-w-[340px] xl:max-w-[420px] mx-auto aspect-square flex items-center justify-center"
-          >
-            {/* Main Badge */}
-            <div className="absolute inset-0 rounded-full bg-diner-red border-5 border-ink shadow-[12px_12px_0_theme(colors.ink)] flex flex-col items-center justify-center text-white text-center p-8 overflow-hidden">
-              <div className="absolute inset-4 rounded-full border-2 border-dashed border-white/30" />
-              <span className="font-bungee text-[10px] sm:text-xs tracking-[0.3em] mb-2">{t.badge_top}</span>
-              <strong className="font-display text-4xl sm:text-5xl xl:text-6xl text-mustard leading-none">BURGER</strong>
-              <span className="font-bungee text-[10px] sm:text-xs tracking-[0.2em] mt-2">{t.badge_bot}</span>
-            </div>
-
-            {/* Corner Star */}
-            <motion.div 
-              initial={{ rotate: -15 }}
-              whileHover={{ rotate: 0, scale: 1.1 }}
-              className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 w-16 h-16 sm:w-24 sm:h-24 bg-mustard border-4 border-ink rounded-full flex items-center justify-center text-center font-bungee text-[10px] sm:text-sm leading-none shadow-[4px_4px_0_theme(colors.ink)] z-20"
-            >
-              HOT<br />SAUCE
-            </motion.div>
           </motion.div>
 
         </div>
