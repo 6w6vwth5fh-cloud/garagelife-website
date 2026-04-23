@@ -137,8 +137,9 @@
 
   /* ===== HERO ===== */
   .hero{
-    min-height:100vh;
-    padding:130px 0 60px;
+    min-height:100svh;
+    min-height:100dvh;
+    padding:110px 0 48px;
     position:relative;
     display:flex;align-items:center;
     background:
@@ -153,21 +154,23 @@
     background-size:22px 22px;
     opacity:.08;pointer-events:none;
   }
+@media (max-width: 768px){
   .hero-grid{
-    display:grid;grid-template-columns:1.2fr .8fr;gap:60px;
-    align-items:center;position:relative;z-index:1;
+    grid-template-columns:1fr;
+    gap:32px;
   }
+}
   .hero h1{
-    font-size:clamp(48px,7vw,96px);
+    font-size:clamp(32px,11vw,56px);
     margin:18px 0 20px;color:var(--ink);
     text-shadow:5px 5px 0 var(--mustard);
-    line-height:0.9;
+    line-height:1.02;
   }
   .hero h1 .red{color:var(--red)}
   .hero h1 .navy{color:var(--navy)}
   .hero p.sub{
     font-size:clamp(15px,1.5vw,18px);
-    color:var(--ink);max-width:500px;margin-bottom:30px;
+    color:var(--ink);max-width:32ch;margin-bottom:24px;
     font-weight:500;
   }
   .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
