@@ -464,13 +464,18 @@ const Footer = ({ lang }: { lang: Language }) => {
           <div className="space-y-6">
             <h5 className="font-display text-mustard uppercase tracking-widest text-sm">{t.nav}</h5>
             <div className="flex flex-col gap-3">
-              {['about', 'menu', 'visit', 'reserve'].map(item => (
+              {[
+                { label: 'about', href: '/pages/about.html' },
+                { label: 'menu', href: '/pages/menu.html' },
+                { label: 'visit', href: '/pages/contact.html' },
+                { label: 'reserve', href: '/' }
+              ].map(item => (
                 <a
-                  key={item}
-                  href={`#${item}`}
+                  key={item.label}
+                  href={item.href}
                   className="px-4 py-2 bg-white/5 hover:bg-diner-red text-sm font-bold uppercase tracking-wider rounded border-2 border-white/10 hover:border-diner-red transition-all"
                 >
-                  ★ {item}
+                  ★ {item.label}
                 </a>
               ))}
             </div>
