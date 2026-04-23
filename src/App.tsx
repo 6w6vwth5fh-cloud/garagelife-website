@@ -407,50 +407,95 @@ const VisitSection = ({ lang }: { lang: Language }) => {
   );
 };
 
-const Footer = () => {
+const Footer = ({ lang }: { lang: Language }) => {
+  const footerText = {
+    en: {
+      desc: "American diner & bar in Nanjo, Okinawa. Hand-pressed burgers and craft drinks, raw and bold. Since 2018.",
+      nav: "Navigation",
+      instagram: "Instagram",
+      maps: "Google Maps"
+    },
+    ja: {
+      desc: "沖縄・南城市のアメリカンダイナー。本格ビーフバーガーとクラフトドリンク。ガレージの中で味わう、無骨でうまい一皿を。2018年創業。",
+      nav: "ナビゲーション",
+      instagram: "Instagram",
+      maps: "Googleマップ"
+    }
+  };
+
+  const t = footerText[lang];
+
   return (
     <footer className="bg-ink pt-20 pb-10 text-cream relative mt-20">
       <div className="absolute top-0 left-0 right-0 h-4 stripes-bg -translate-y-4" />
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+          {/* Brand */}
           <div className="space-y-6">
             <a href="#top" className="text-3xl font-display text-mustard tracking-tight">Garage<em className="not-italic text-white">Life</em></a>
             <p className="text-sm text-cream-dark/60 leading-relaxed max-w-sm">
-              American diner & bar in Nanjo, Okinawa. Hand-pressed burgers and craft drinks, raw and bold. Since 2018.
+              {t.desc}
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="p-3 bg-white/5 hover:bg-diner-red rounded-full transition-colors"><Instagram className="w-5 h-5" /></a>
-              <a href="#" className="p-3 bg-white/5 hover:bg-diner-navy rounded-full transition-colors"><MapPin className="w-5 h-5" /></a>
+
+            {/* SNS Links */}
+            <div className="space-y-3">
+              <a
+                href="https://instagram.com/garage_life86"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-3 bg-white/5 hover:bg-diner-red rounded transition-colors group"
+              >
+                <Instagram className="w-5 h-5" />
+                <span className="text-sm font-medium group-hover:text-white">{t.instagram}</span>
+              </a>
+              <a
+                href="https://maps.google.com/?q=cafe%26bar+GarageLife"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-3 bg-white/5 hover:bg-diner-navy rounded transition-colors group"
+              >
+                <MapPin className="w-5 h-5" />
+                <span className="text-sm font-medium group-hover:text-white">{t.maps}</span>
+              </a>
             </div>
           </div>
-          
+
+          {/* Navigation */}
           <div className="space-y-6">
-            <h5 className="font-display text-mustard uppercase tracking-widest text-sm">Navigation</h5>
+            <h5 className="font-display text-mustard uppercase tracking-widest text-sm">{t.nav}</h5>
             <div className="flex flex-col gap-3">
-              {['about', 'menu', 'visit', 'reserve'].map(it => (
-                <a key={it} href={`#${it}`} className="text-sm hover:text-mustard transition-colors capitalize">★ {it}</a>
+              {['about', 'menu', 'visit', 'reserve'].map(item => (
+                <a
+                  key={item}
+                  href={`#${item}`}
+                  className="px-4 py-2 bg-white/5 hover:bg-diner-red text-sm font-bold uppercase tracking-wider rounded border-2 border-white/10 hover:border-diner-red transition-all"
+                >
+                  ★ {item}
+                </a>
               ))}
             </div>
           </div>
 
+          {/* Reserve Info */}
           <div className="space-y-6">
-            <h5 className="font-display text-mustard uppercase tracking-widest text-sm">Newsletter</h5>
-            <p className="text-xs text-cream-dark/60">Get latest event news and coupons.</p>
-            <div className="flex gap-2">
-              <input type="email" placeholder="Your Email" className="flex-1 bg-white/5 border border-white/20 px-4 py-2 text-xs rounded focus:outline-none focus:border-mustard" />
-              <button className="bg-mustard text-ink px-4 py-2 rounded font-bold text-xs">JOIN</button>
-            </div>
+            <h5 className="font-display text-mustard uppercase tracking-widest text-sm">
+              {lang === 'en' ? 'Reserve' : 'ご予約'}
+            </h5>
+            <p className="text-xs text-cream-dark/60">
+              {lang === 'en'
+                ? "Walk-ins welcome! Groups of 3+ please book ahead via Instagram DM."
+                : "ランチはウォークイン大歓迎！3名以上のグループはInstagram DMでのご予約をおすすめします。"}
+            </p>
+            <a href="#top" className="inline-block px-6 py-3 bg-diner-red text-white font-bold text-xs uppercase rounded border-2 border-white hover:bg-diner-red/90 transition-colors">
+              {lang === 'en' ? 'Reserve Now' : 'ご予約フォーム'}
+            </a>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/10 flex flex-col md:row items-center justify-between gap-4">
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[10px] font-bungee tracking-[0.2em] opacity-40">
             © {new Date().getFullYear()} GARAGELIFE — STARS, STRIPES & BURGERS
           </p>
-          <div className="flex gap-6 text-[10px] font-bold opacity-60">
-            <a href="#" className="hover:text-mustard">Privacy</a>
-            <a href="#" className="hover:text-mustard">Terms</a>
-          </div>
         </div>
       </div>
     </footer>
@@ -500,7 +545,7 @@ export default function App() {
         </section>
       </main>
 
-      <Footer />
+      <Footer lang={lang} />
       <div className="h-2.5 stripes-bg" />
     </div>
   );
