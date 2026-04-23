@@ -214,16 +214,12 @@ const Hero = ({ lang }: { lang: Language }) => {
             className="relative w-full max-w-[280px] sm:max-w-[340px] xl:max-w-[420px] mx-auto aspect-square flex items-center justify-center"
           >
             {/* Main Badge */}
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 rounded-full bg-diner-red border-5 border-ink shadow-[12px_12px_0_theme(colors.ink)] flex flex-col items-center justify-center text-white text-center p-8 overflow-hidden"
-            >
+            <div className="absolute inset-0 rounded-full bg-diner-red border-5 border-ink shadow-[12px_12px_0_theme(colors.ink)] flex flex-col items-center justify-center text-white text-center p-8 overflow-hidden">
               <div className="absolute inset-4 rounded-full border-2 border-dashed border-white/30" />
               <span className="font-bungee text-[10px] sm:text-xs tracking-[0.3em] mb-2">{t.badge_top}</span>
               <strong className="font-display text-4xl sm:text-5xl xl:text-6xl text-mustard leading-none">BURGER</strong>
               <span className="font-bungee text-[10px] sm:text-xs tracking-[0.2em] mt-2">{t.badge_bot}</span>
-            </motion.div>
+            </div>
 
             {/* Corner Star */}
             <motion.div 
