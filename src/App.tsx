@@ -183,10 +183,10 @@ const Hero = ({ lang }: { lang: Language }) => {
             
             <h1 className="mt-6 mb-6 font-display text-4xl sm:text-6xl xl:text-7xl leading-none tracking-tight">
               <span className="text-diner-red drop-shadow-[5px_5px_0_theme(colors.mustard)]">
-                {lang === 'en' ? 'AMERICAN' : 'アメリカン'}
+                AMERICAN
               </span><br />
               <span className="text-diner-navy drop-shadow-[5px_5px_0_theme(colors.mustard)]">
-                {lang === 'en' ? 'DINER' : 'ダイナー'}
+                DINER
               </span><br />
               <span className="drop-shadow-[5px_5px_0_theme(colors.mustard)]">
                 & BAR
