@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カート | ショップ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="site-header">
+  <div class="container">
+    <div class="header-inner">
+      <a class="site-logo" href="index.html">シ<span>ョ</span>ップ</a>
+      <nav class="header-nav">
+        <a href="shop.html">商品一覧</a>
+        <a href="shop.html#goods">物販</a>
+        <a href="shop.html#services">サービス</a>
+        <a href="shop.html#courses">講座・ワークショップ</a>
+        <a href="about.html">運営者紹介</a>
+      </nav>
+      <div class="header-actions">
+        <a href="cart.html" class="cart-btn active">
+          カート
+          <span class="cart-count" data-count="0">0</span>
+        </a>
+      </div>
+      <button class="hamburger" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav">
+  <div class="mobile-nav-overlay"></div>
+  <div class="mobile-nav-panel">
+    <button class="mobile-nav-close">✕</button>
+    <a href="shop.html">商品一覧</a>
+    <a href="about.html">運営者紹介</a>
+    <a href="cart.html">カート</a>
+  </div>
+</div>
+
+<div style="border-bottom:1px solid var(--border); background:var(--white);">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">ホーム</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>カート</span>
+    </div>
+  </div>
+</div>
+
+<main class="section">
+  <div class="container">
+    <h1 class="cart-title">カート</h1>
+    <div class="cart-layout">
+
+      <div>
+        <div id="cart-items-list">
+          <!-- JS で描画 -->
+          <div class="cart-empty">
+            <div class="cart-empty-icon">◎</div>
+            <p>カートに商品がありません</p>
+            <a href="shop.html" class="btn btn-outline">商品一覧へ</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="cart-summary-section">
+        <div class="order-summary">
+          <div class="order-summary-title">ご注文内容</div>
+          <div class="summary-row">
+            <span>小計</span>
+            <span id="summary-subtotal">¥0</span>
+          </div>
+          <div class="summary-row">
+            <span>送料</span>
+            <span>準備中</span>
+          </div>
+          <div class="summary-row total">
+            <span>合計（税込）</span>
+            <span id="summary-total">¥0</span>
+          </div>
+          <p class="summary-note">
+            ※ 決済方法・配送方法は準備中です。<br>
+            ※ サービス商品はご予約のご案内をお送りします。
+          </p>
+          <button class="btn btn-primary btn-full btn-lg" onclick="alert('決済機能は準備中です。')">
+            レジに進む
+          </button>
+          <div style="margin-top:12px;">
+            <a href="shop.html" class="btn btn-ghost btn-full">買い物を続ける</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer id="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">ショップ</div>
+        <p class="footer-tagline">フッターのキャッチコピーが入ります。（準備中）</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Twitter/X">X</a>
+          <a href="#" aria-label="LINE">L</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Products</div>
+        <nav class="footer-nav">
+          <a href="products/fullerene.html">フラーレン</a>
+          <a href="products/amulet.html">護符</a>
+          <a href="products/aroma-cream.html">アロマブレンドクリーム</a>
+          <a href="products/incense.html">お香</a>
+          <a href="products/leather.html">レザー商品</a>
+          <a href="products/art.html">アート系</a>
+          <a href="products/thread-mandala.html">糸掛曼荼羅</a>
+          <a href="products/birds.html">バーズ</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Services &amp; More</div>
+        <nav class="footer-nav">
+          <a href="products/distance-reiki.html">遠隔レイキ</a>
+          <a href="products/in-person-reiki.html">対面レイキ</a>
+          <a href="products/horoscope.html">ホロスコープ</a>
+          <a href="products/ear-therapy.html">イヤーセラピー</a>
+          <a href="products/courses.html">各種講座</a>
+          <a href="products/workshops.html">各種ワークショップ</a>
+          <a href="about.html">運営者紹介</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 ショップ All rights reserved.</span>
+      <div class="footer-links">
+        <a href="#">特定商取引法に基づく表記</a>
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">お問い合わせ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

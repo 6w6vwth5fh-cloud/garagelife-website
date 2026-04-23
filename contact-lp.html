@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>店舗情報・アクセス — GarageLife</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bungee&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#faf3e7;
+    --cream-2:#f2e7d1;
+    --red:#c8102e;
+    --navy:#1e3a5f;
+    --mustard:#f4c430;
+    --ink:#1a1a1a;
+    --muted:#6b6157;
+    --line:rgba(26,26,26,0.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block;height:auto}
+  .display{font-family:'Alfa Slab One',serif;letter-spacing:.01em;line-height:1}
+  .container{max-width:1100px;margin:0 auto;padding:0 24px}
+  .btn{
+    display:inline-block;padding:14px 28px;
+    font-family:'Alfa Slab One',serif;font-size:16px;letter-spacing:.08em;
+    background:var(--red);color:#fff;border:3px solid var(--ink);
+    cursor:pointer;transition:transform .15s,box-shadow .15s;
+    text-transform:uppercase;
+    box-shadow:5px 5px 0 var(--ink);
+    border-radius:4px;
+  }
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+  .btn.secondary{background:var(--navy)}
+  .btn.nav-btn{padding:10px 18px;font-size:13px;box-shadow:3px 3px 0 var(--ink)}
+
+  /* NAV */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(250,243,231,.96);
+    border-bottom:3px solid var(--ink);
+    backdrop-filter:blur(8px);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;max-width:1100px;margin:0 auto;width:100%;
+  }
+  .logo{
+    font-family:'Alfa Slab One',serif;font-size:24px;
+    color:var(--red);display:flex;align-items:center;gap:8px;
+  }
+  .logo::before{content:"★";color:var(--mustard);font-size:18px;-webkit-text-stroke:1.5px var(--ink)}
+  .logo em{font-style:normal;color:var(--navy)}
+
+  /* HERO */
+  .hero{
+    min-height:80vh;
+    padding:130px 0 60px;
+    position:relative;
+    display:flex;align-items:center;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(244,196,48,.35), transparent 45%),
+      radial-gradient(circle at 90% 80%, rgba(200,16,46,.15), transparent 50%),
+      var(--cream);
+  }
+  .hero h1{
+    font-size:clamp(52px,8vw,84px);
+    margin:18px 0 20px;color:var(--ink);
+    text-shadow:4px 4px 0 var(--mustard);
+  }
+  .hero h1 em{font-style:normal;color:var(--red)}
+  .hero p{
+    font-size:18px;color:var(--ink);max-width:500px;margin-bottom:30px;
+    font-weight:500;
+  }
+
+  /* SECTION */
+  .section{padding:100px 0;position:relative}
+
+  /* INFO CARDS */
+  .info-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;
+    align-items:start;margin:60px 0;
+  }
+  .info-block h3{
+    font-family:'Alfa Slab One',serif;font-size:32px;
+    color:var(--navy);margin-bottom:28px;
+  }
+  .info-item{
+    margin-bottom:28px;padding-bottom:28px;
+    border-bottom:2px dashed var(--line);
+  }
+  .info-item:last-child{border-bottom:0}
+  .info-label{
+    font-family:'Bungee',cursive;font-size:12px;
+    letter-spacing:.2em;text-transform:uppercase;
+    color:var(--red);margin-bottom:8px;font-weight:700;
+  }
+  .info-value{
+    font-size:16px;color:var(--ink);font-weight:600;line-height:1.8;
+  }
+
+  /* MAP */
+  .map-container{
+    border:4px solid var(--ink);border-radius:4px;
+    overflow:hidden;
+    box-shadow:10px 10px 0 var(--mustard);
+    height:400px;
+    display:block;
+    width:100%;
+  }
+
+  /* HOURS TABLE */
+  .hours-table{
+    width:100%;border-collapse:collapse;
+    background:#fff;
+    border:3px solid var(--ink);
+    border-radius:4px;
+    overflow:hidden;
+    box-shadow:6px 6px 0 var(--ink);
+    margin:40px 0;
+  }
+  .hours-table th,.hours-table td{
+    padding:16px 20px;
+    text-align:left;
+    border-bottom:1px solid var(--line);
+  }
+  .hours-table th{
+    background:var(--navy);color:#fff;
+    font-family:'Alfa Slab One',serif;font-size:14px;
+    font-weight:700;
+  }
+  .hours-table tr:last-child td{border-bottom:0}
+  .hours-table td:first-child{
+    font-family:'Alfa Slab One',serif;font-size:14px;
+    font-weight:700;color:var(--navy);
+    min-width:100px;
+  }
+  .hours-table td:last-child{
+    text-align:right;font-weight:600;
+  }
+  .hours-table tr:nth-child(even){background:var(--cream-2)}
+
+  /* CONTACT OPTIONS */
+  .contact-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+    margin:60px 0;
+  }
+  .contact-card{
+    background:var(--navy);color:#fff;padding:32px 28px;
+    border:3px solid var(--ink);border-radius:4px;
+    box-shadow:6px 6px 0 var(--mustard);
+    text-align:center;
+  }
+  .contact-icon{
+    font-size:40px;margin-bottom:12px;
+  }
+  .contact-card h4{
+    font-family:'Alfa Slab One',serif;font-size:22px;
+    color:var(--mustard);margin-bottom:12px;
+  }
+  .contact-card p{
+    font-size:14px;line-height:1.7;margin-bottom:16px;
+  }
+  .contact-card a{
+    display:inline-block;
+    background:var(--mustard);color:var(--ink);
+    padding:10px 18px;border:2px solid #fff;border-radius:4px;
+    font-family:'Alfa Slab One',serif;font-size:13px;
+    transition:transform .15s;
+  }
+  .contact-card a:hover{transform:translate(-2px,-2px)}
+
+  /* ACCESS */
+  .access-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:40px;
+    align-items:center;
+    margin:80px 0;
+    background:var(--cream-2);padding:40px;
+    border:3px solid var(--ink);border-radius:4px;
+  }
+  .access-list h3{
+    font-family:'Alfa Slab One',serif;font-size:32px;
+    color:var(--navy);margin-bottom:24px;
+  }
+  .access-list ol{
+    counter-reset:item;list-style:none;padding-left:0;
+  }
+  .access-list li{
+    counter-increment:item;margin-bottom:16px;
+    padding-left:40px;position:relative;
+    font-size:15px;line-height:1.7;
+  }
+  .access-list li::before{
+    content:counter(item);
+    position:absolute;left:0;top:-2px;
+    background:var(--red);color:#fff;
+    width:32px;height:32px;
+    display:flex;align-items:center;justify-content:center;
+    border:2px solid var(--ink);border-radius:50%;
+    font-family:'Alfa Slab One',serif;font-size:14px;font-weight:700;
+  }
+  .access-image{
+    border:3px solid var(--ink);border-radius:4px;
+    overflow:hidden;
+    box-shadow:8px 8px 0 var(--ink);
+    height:300px;
+  }
+  .access-image img{
+    width:100%;height:100%;object-fit:cover;
+  }
+
+  /* PARKING */
+  .parking{
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;
+    margin:60px 0;
+  }
+  .parking-card{
+    background:#fff;padding:24px;
+    border:3px solid var(--ink);border-radius:4px;
+    box-shadow:5px 5px 0 var(--ink);
+  }
+  .parking-card h4{
+    font-family:'Alfa Slab One',serif;font-size:20px;
+    color:var(--red);margin-bottom:12px;
+  }
+  .parking-card p{font-size:14px;line-height:1.7;color:var(--ink)}
+
+  /* CTA */
+  .final-cta{
+    text-align:center;padding:60px 40px;
+    background:var(--red);color:#fff;
+    border:3px solid var(--ink);border-radius:4px;
+    box-shadow:10px 10px 0 var(--ink);
+    margin:80px 0;
+  }
+  .final-cta h3{
+    font-family:'Alfa Slab One',serif;font-size:36px;
+    margin-bottom:20px;
+  }
+  .final-cta p{font-size:16px;margin-bottom:30px}
+  .final-cta .btn{background:var(--mustard);color:var(--ink);border-color:#fff}
+
+  /* FOOTER */
+  footer{
+    background:var(--ink);color:var(--cream);padding:40px 0 20px;
+    border-top:3px solid var(--ink);
+    text-align:center;
+  }
+  footer p{font-size:13px;color:var(--cream-2)}
+  footer a{display:inline-block;margin-top:10px;color:var(--mustard);font-weight:700}
+
+  @media (max-width:1000px){
+    .info-grid{grid-template-columns:1fr;gap:24px}
+    .contact-grid{grid-template-columns:1fr}
+    .access-grid{grid-template-columns:1fr;gap:24px}
+    .parking{grid-template-columns:1fr}
+    .map-container{height:280px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="garagelife-american.html" class="logo">Garage<em>Life</em></a>
+    <a href="garagelife-american.html#visit" class="btn nav-btn">← Back</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1 class="display">VISIT <em>&amp; ACCESS</em></h1>
+    <p>沖縄・つきしろでお会いしましょう。営業時間、アクセス、ご予約について。</p>
+  </div>
+</section>
+
+<!-- INFO SECTION -->
+<section class="section">
+  <div class="container">
+    <div class="info-grid">
+      <div class="info-block">
+        <h3>基本情報</h3>
+        <div class="info-item">
+          <div class="info-label">営業時間</div>
+          <div class="info-value">11:30 – 15:00（ランチ）<br>19:00 – 03:00（ディナー）</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">定休日</div>
+          <div class="info-value">木曜日</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">席数</div>
+          <div class="info-value">カウンター 8席 / テーブル 12席<br>計 20席</div>
+        </div>
+      </div>
+      <div class="info-block">
+        <h3>所在地</h3>
+        <div class="info-item">
+          <div class="info-label">住所</div>
+          <div class="info-value">〒901-1407<br>沖縄県南城市つきしろ1600-24</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">支払い</div>
+          <div class="info-value">現金 / PayPay</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Google Maps</div>
+          <div class="info-value"><a href="https://maps.google.com/?q=901-1407沖縄県南城市つきしろ1600-24" target="_blank" style="color:#c8102e;text-decoration:underline;font-weight:700">地図を見る</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-container">
+      <a href="https://maps.google.com/?q=cafe%26bar+GarageLife" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;height:100%;text-decoration:none;color:var(--ink);">
+        <div style="font-size:48px;margin-bottom:16px">📍</div>
+        <div style="font-family:'Alfa Slab One',serif;font-size:24px;color:var(--red);margin-bottom:8px">Google Maps で見る</div>
+        <div style="font-size:14px;color:var(--muted)">新しいタブで開きます</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS TABLE -->
+<section class="section">
+  <div class="container">
+    <h2 class="display" style="font-size:42px;margin-bottom:30px;color:#c8102e">営業時間</h2>
+    <table class="hours-table">
+      <thead>
+        <tr>
+          <th>曜日</th>
+          <th>ランチ</th>
+          <th>ディナー</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>月 – 水</td>
+          <td>11:30 – 15:00</td>
+          <td>19:00 – 03:00</td>
+        </tr>
+        <tr>
+          <td>木</td>
+          <td colspan="2" style="text-align:center;color:#c8102e;font-weight:700">定休日</td>
+        </tr>
+        <tr>
+          <td>金 – 日</td>
+          <td>11:30 – 15:00</td>
+          <td>19:00 – 03:00</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px;color:var(--muted);margin-top:14px;"><strong>※ ランチはウォークイン大歓迎。ディナー・3名以上は要予約。</strong></p>
+  </div>
+</section>
+
+<!-- CONTACT OPTIONS -->
+<section class="section">
+  <div class="container">
+    <h2 class="display" style="font-size:42px;margin-bottom:40px;color:#c8102e">お問い合わせ方法</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">📱</div>
+        <h4>Instagram DM</h4>
+        <p>24時間対応。ご予約・ご質問はこちらまで。</p>
+        <a href="#">DM を送る</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <h4>電話</h4>
+        <p>営業時間内にお電話ください。</p>
+        <a href="tel:098XXXXX">電話する</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📍</div>
+        <h4>Google Maps</h4>
+        <p>地図からの検索・レビューもお待ちしています。</p>
+        <a href="https://maps.google.com/?q=cafe%26bar+GarageLife" target="_blank">検索する</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- PARKING -->
+<section class="section">
+  <div class="container">
+    <h2 class="display" style="font-size:42px;margin-bottom:30px;color:#c8102e">駐車場情報</h2>
+    <div class="parking">
+      <div class="parking-card">
+        <h4>★ 店舗前駐車場</h4>
+        <p><strong>8台分</strong><br>店の目の前にあります。無料です。混雑時はお待たせすることもあります。</p>
+      </div>
+      <div class="parking-card">
+        <h4>★ 近隣駐車場</h4>
+        <p>店舗近くに他の駐車場もあります。ご不明な点はお気軽にお問い合わせください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- FINAL CTA -->
+<section class="section">
+  <div class="container">
+    <div class="final-cta">
+      <h3>今すぐご予約 / ご来店</h3>
+      <p>ランチはウォークイン大歓迎。夜のご利用はご予約がおすすめです。</p>
+      <a href="reserve-lp.html" class="btn">予約フォームへ</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 GarageLife — All Rights Reserved</p>
+  <a href="garagelife-american.html">← トップページに戻る</a>
+</footer>
+
+</body>
+</html>

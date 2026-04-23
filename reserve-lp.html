@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ご予約 — GarageLife</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Bungee&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#faf3e7;
+    --cream-2:#f2e7d1;
+    --red:#c8102e;
+    --navy:#1e3a5f;
+    --mustard:#f4c430;
+    --ink:#1a1a1a;
+    --muted:#6b6157;
+    --line:rgba(26,26,26,0.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.65;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .display{font-family:'Alfa Slab One',serif;letter-spacing:.01em;line-height:1}
+  .container{max-width:900px;margin:0 auto;padding:0 24px}
+  .btn{
+    display:inline-block;padding:14px 28px;
+    font-family:'Alfa Slab One',serif;font-size:16px;letter-spacing:.08em;
+    background:var(--red);color:#fff;border:3px solid var(--ink);
+    cursor:pointer;transition:transform .15s,box-shadow .15s;
+    text-transform:uppercase;
+    box-shadow:5px 5px 0 var(--ink);
+    border-radius:4px;
+  }
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+  .btn.nav-btn{padding:10px 18px;font-size:13px;box-shadow:3px 3px 0 var(--ink)}
+
+  /* NAV */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(250,243,231,.96);
+    border-bottom:3px solid var(--ink);
+    backdrop-filter:blur(8px);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 24px;max-width:900px;margin:0 auto;width:100%;
+  }
+  .logo{
+    font-family:'Alfa Slab One',serif;font-size:24px;
+    color:var(--red);display:flex;align-items:center;gap:8px;
+  }
+  .logo::before{content:"★";color:var(--mustard);font-size:18px;-webkit-text-stroke:1.5px var(--ink)}
+  .logo em{font-style:normal;color:var(--navy)}
+
+  /* HERO */
+  .hero{
+    min-height:100vh;
+    padding:130px 0 60px;
+    position:relative;
+    display:flex;align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(244,196,48,.3), transparent 50%),
+      linear-gradient(135deg, var(--cream) 0%, var(--cream-2) 100%);
+  }
+  .hero h1{
+    font-size:clamp(52px,10vw,96px);
+    margin:18px 0 20px;color:var(--ink);
+    text-shadow:5px 5px 0 var(--mustard);
+  }
+  .hero h1 em{font-style:normal;color:var(--red)}
+  .hero p{
+    font-size:18px;color:var(--ink);max-width:480px;margin:0 auto 30px;
+    font-weight:500;
+  }
+
+  /* SECTION */
+  .section{padding:60px 0}
+
+  /* BENEFITS */
+  .benefits{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+    margin:60px 0;
+  }
+  .benefit-card{
+    background:#fff;padding:28px 24px;
+    border:3px solid var(--ink);border-radius:4px;
+    box-shadow:5px 5px 0 var(--ink);
+    text-align:center;
+  }
+  .benefit-card strong{
+    display:block;font-family:'Alfa Slab One',serif;
+    font-size:18px;color:var(--red);margin-bottom:8px;
+  }
+  .benefit-card span{
+    font-size:13px;color:var(--muted);line-height:1.6;
+  }
+
+  /* FORM SECTION */
+  .form-hero{
+    background:var(--navy);color:#fff;
+    padding:40px 28px;border:3px solid var(--ink);border-radius:4px;
+    box-shadow:8px 8px 0 var(--mustard);
+    margin:60px 0;
+  }
+  .form-hero h2{
+    font-family:'Alfa Slab One',serif;font-size:42px;
+    margin-bottom:10px;color:var(--mustard);
+  }
+  .form-hero p{
+    color:var(--cream);margin-bottom:30px;
+  }
+
+  .form{
+    background:#fff;padding:36px;
+    border:3px solid var(--ink);border-radius:4px;
+    box-shadow:8px 8px 0 var(--red);
+  }
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+  .form-group{margin-bottom:14px}
+  .form label{
+    display:block;font-family:'Bungee',cursive;font-size:11px;
+    letter-spacing:.18em;text-transform:uppercase;
+    color:var(--navy);margin-bottom:6px;
+  }
+  .form input,.form select,.form textarea{
+    width:100%;padding:12px 14px;background:var(--cream);
+    border:2px solid var(--ink);color:var(--ink);
+    font-family:'Inter',sans-serif;font-size:14px;font-weight:500;
+    border-radius:4px;transition:border-color .15s,background .15s;
+  }
+  .form input:focus,.form select:focus,.form textarea:focus{
+    outline:none;border-color:var(--red);background:#fff;
+  }
+  .form textarea{resize:vertical;min-height:100px}
+  .form .btn{width:100%;margin-top:8px}
+
+  /* SUCCESS */
+  .form-success{
+    display:none;text-align:center;padding:50px 20px;
+    background:var(--mustard);border:3px solid var(--ink);border-radius:4px;
+    box-shadow:8px 8px 0 var(--red);
+  }
+  .form-success.show{display:block}
+  .form-success h3{
+    font-family:'Alfa Slab One',serif;color:var(--red);
+    font-size:48px;margin-bottom:12px;
+    text-shadow:3px 3px 0 var(--ink);
+  }
+  .form-success p{color:var(--ink);font-size:14px;font-weight:600}
+
+  /* FAQ */
+  .faq{margin-top:60px}
+  .faq-title{
+    font-family:'Alfa Slab One',serif;font-size:32px;
+    color:var(--ink);margin-bottom:30px;
+  }
+  .faq-item{
+    margin-bottom:18px;
+    border:3px solid var(--ink);border-radius:4px;
+    overflow:hidden;
+  }
+  .faq-q{
+    background:var(--navy);color:#fff;
+    padding:18px 20px;cursor:pointer;
+    font-family:'Alfa Slab One',serif;font-size:15px;
+    display:flex;justify-content:space-between;align-items:center;
+    transition:background .15s;
+  }
+  .faq-q:hover{background:var(--navy-dark)}
+  .faq-q::after{content:"＋";font-size:20px;color:var(--mustard)}
+  .faq-item.open .faq-q::after{content:"－"}
+  .faq-a{
+    display:none;padding:18px 20px;
+    background:var(--cream-2);color:var(--ink);
+    font-size:14px;line-height:1.7;
+  }
+  .faq-item.open .faq-a{display:block}
+
+  /* FOOTER */
+  footer{
+    background:var(--ink);color:var(--cream);padding:40px 0 20px;
+    border-top:3px solid var(--ink);
+    text-align:center;
+  }
+  footer p{font-size:13px;color:var(--cream-2)}
+  footer a{display:inline-block;margin-top:10px;color:var(--mustard);font-weight:700}
+
+  .navy-dark{--navy-dark:#152844}
+
+  @media (max-width:860px){
+    .benefits{grid-template-columns:1fr}
+    .form-row{grid-template-columns:1fr}
+    .hero h1{font-size:clamp(40px,8vw,64px)}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="garagelife-american.html" class="logo">Garage<em>Life</em></a>
+    <a href="garagelife-american.html" class="btn nav-btn">← Back</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1 class="display"><em>RESERVE</em><br>YOUR TABLE</h1>
+    <p>今すぐ予約して、GarageLife の無骨でうまい時間を。</p>
+    <div style="margin-top:20px">
+      <a href="#form" class="btn">今すぐ予約</a>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="section">
+  <div class="container">
+    <div class="benefits">
+      <div class="benefit-card">
+        <strong>⭐ 予約不要</strong>
+        <span>ランチもディナーもウォークイン大歓迎</span>
+      </div>
+      <div class="benefit-card">
+        <strong>⭐ グループもOK</strong>
+        <span>3名以上のご来店もお待ちしています</span>
+      </div>
+      <div class="benefit-card">
+        <strong>⭐ 確約サービス</strong>
+        <span>ご予約いただいた方は席を確保します</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM SECTION -->
+<section class="section">
+  <div class="container">
+    <div class="form-hero">
+      <h2>ご予約フォーム</h2>
+      <p>ご希望の日時をお教えください。24時間以内に確認させていただきます。</p>
+    </div>
+
+    <form class="form" id="resForm" autocomplete="off">
+      <div class="form-row">
+        <div><label>お名前 *</label><input type="text" name="name" required></div>
+        <div><label>人数 *</label>
+          <select name="people" required>
+            <option value="">選択...</option>
+            <option value="1">1名</option><option value="2">2名</option>
+            <option value="3">3名</option><option value="4">4名</option>
+            <option value="5">5名</option><option value="6+">6名以上</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div><label>日付 *</label><input type="date" name="date" required></div>
+        <div><label>時間 *</label><input type="time" name="time" required></div>
+      </div>
+      <div class="form-group">
+        <label>メッセージ（アレルギー・リクエストなど）</label>
+        <textarea name="message" placeholder="例：ナッツアレルギーあり / 記念日のお祝いです"></textarea>
+      </div>
+      <button type="submit" class="btn">予約リクエストを送信 ★</button>
+    </form>
+
+    <div class="form-success" id="resSuccess">
+      <h3>THANKS!</h3>
+      <p>ご予約リクエストをお受けしました。<br>24時間以内に Instagram DM にてご返信いたします。</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container">
+    <div class="faq">
+      <h3 class="faq-title">よくあるご質問</h3>
+
+      <div class="faq-item">
+        <div class="faq-q">予約は必須ですか？</div>
+        <div class="faq-a">いいえ。ランチもディナーも予約不要です。ウォークインで大歓迎です。ただしグループでのご来店や事前に確保したい場合はお気軽にご予約ください。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">グループでの利用は可能ですか？</div>
+        <div class="faq-a">もちろんです。3名以上のグループも大歓迎。予約なしでお越しいただけます。確実に席を確保したい場合はご予約をおすすめします。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">アレルギー対応はできますか？</div>
+        <div class="faq-a">はい。予約時のメッセージ欄でお知らせください。詳しくご相談したい場合は、Instagram DM でお問い合わせいただければ幸いです。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">子連れでも大丈夫ですか？</div>
+        <div class="faq-a">大歓迎です。ただし店内が比較的狭めなため、小さなお子さん連れの場合は事前にお知らせいただくと、スムーズにご案内できます。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">キャンセルはいつまで可能ですか？</div>
+        <div class="faq-a">ご来店予定日の3日前までは無料でキャンセル可能です。2日前以降のキャンセルはお電話でお知らせください。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">支払い方法は何が使えますか？</div>
+        <div class="faq-a">現金と PayPay に対応しています。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 GarageLife — All Rights Reserved</p>
+  <a href="garagelife-american.html">← トップページに戻る</a>
+</footer>
+
+<script>
+  const form = document.getElementById('resForm');
+  const success = document.getElementById('resSuccess');
+  form.addEventListener('submit', e=>{
+    e.preventDefault();
+    form.style.display = 'none';
+    success.classList.add('show');
+    success.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  // FAQ toggle
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click', ()=>{
+      q.parentElement.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>
