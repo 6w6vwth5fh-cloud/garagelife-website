@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'motion/react';
 import { Star, Menu as MenuIcon, X, Instagram, MapPin, Clock, Phone, ArrowUpRight, Check } from 'lucide-react';
+import { useGoogleAnalytics } from './hooks/useGoogleAnalytics';
+import { BusinessHours } from './components/BusinessHours';
+import { ReservationForm } from './components/ReservationForm';
 
 // --- Types & Constants ---
 
@@ -323,20 +327,23 @@ const VisitSection = ({ lang }: { lang: Language }) => {
           {/* Hours */}
           <div className="bg-diner-navy-dark border-3 border-white p-8 rounded shadow-[6px_6px_0_theme(colors.mustard)]">
             <h3 className="font-display text-2xl text-mustard border-b-2 border-dashed border-white/20 pb-4 mb-6">HOURS</h3>
-            <ul className="space-y-4">
-              <li className="flex justify-between items-center text-sm">
-                <span className="font-bungee text-[10px] tracking-widest text-mustard">Lunch</span>
-                <span>11:30 – 15:00</span>
-              </li>
-              <li className="flex justify-between items-center text-sm">
-                <span className="font-bungee text-[10px] tracking-widest text-mustard">Dinner</span>
-                <span>19:00 – 03:00</span>
-              </li>
-              <li className="flex justify-between items-center text-sm">
-                <span className="font-bungee text-[10px] tracking-widest text-diner-red">Closed</span>
-                <span>Thursday</span>
-              </li>
-            </ul>
+            <div className="space-y-6">
+              <BusinessHours lang={lang} />
+              <ul className="space-y-4">
+                <li className="flex justify-between items-center text-sm text-white">
+                  <span className="font-bungee text-[10px] tracking-widest text-mustard">Lunch</span>
+                  <span>11:30 – 15:00</span>
+                </li>
+                <li className="flex justify-between items-center text-sm text-white">
+                  <span className="font-bungee text-[10px] tracking-widest text-mustard">Dinner</span>
+                  <span>19:00 – 03:00</span>
+                </li>
+                <li className="flex justify-between items-center text-sm text-white">
+                  <span className="font-bungee text-[10px] tracking-widest text-diner-red">Closed</span>
+                  <span>Thursday</span>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Location */}
@@ -481,8 +488,65 @@ const Footer = ({ lang }: { lang: Language }) => {
 
 // --- Main App Component ---
 
+function AppContent({ lang, setLang }: { lang: Language; setLang: (l: Language) => void }) {
+  return (
+    <div className="selection:bg-mustard selection:text-ink">
+      <Helmet>
+        <title>GarageLife - American Diner & Bar in Okinawa</title>
+        <meta name="description" content="Hand-pressed beef burgers, craft drinks, and good times. American diner & bar in Nanjo, Okinawa since 2018." />
+        <meta name="keywords" content="burger, Okinawa, diner, bar, American food" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://garagelife.jp" />
+        <meta property="og:title" content="GarageLife - American Diner & Bar in Okinawa" />
+        <meta property="og:description" content="Hand-pressed beef burgers, craft drinks, and good times. American diner & bar in Nanjo, Okinawa since 2018." />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=1200" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://garagelife.jp" />
+        <meta name="twitter:title" content="GarageLife - American Diner & Bar in Okinawa" />
+        <meta name="twitter:description" content="Hand-pressed beef burgers, craft drinks, and good times." />
+        <meta name="twitter:image" content="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=1200" />
+
+        {/* Additional SEO */}
+        <meta name="author" content="GarageLife" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://garagelife.jp" />
+      </Helmet>
+
+      <div className="h-2.5 stripes-bg" />
+      <Navbar lang={lang} setLang={setLang} />
+
+      <main>
+        <Hero lang={lang} />
+        <AboutSection lang={lang} />
+        <MenuSection lang={lang} />
+        <VisitSection lang={lang} />
+
+        {/* Reservation Form Section */}
+        <section id="reserve" className="py-24 bg-cream">
+          <div className="container mx-auto px-6">
+            <ReservationForm lang={lang} />
+          </div>
+        </section>
+      </main>
+
+      <Footer lang={lang} />
+      <div className="h-2.5 stripes-bg" />
+    </div>
+  );
+}
+
 export default function App() {
   const [lang, setLang] = useState<Language>('ja');
+
+  // Initialize Google Analytics
+  // Note: Replace 'G-XXXXXXXXXX' with actual Google Analytics Measurement ID
+  const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID || '';
+  useGoogleAnalytics(GA_MEASUREMENT_ID);
 
   // Detect browse lang
   useEffect(() => {
@@ -491,39 +555,8 @@ export default function App() {
   }, []);
 
   return (
-    <div className="selection:bg-mustard selection:text-ink">
-      <div className="h-2.5 stripes-bg" />
-      <Navbar lang={lang} setLang={setLang} />
-      
-      <main>
-        <Hero lang={lang} />
-        <AboutSection lang={lang} />
-        <MenuSection lang={lang} />
-        <VisitSection lang={lang} />
-        
-        {/* Simple Reservation CTA */}
-        <section id="reserve" className="py-24">
-          <div className="container mx-auto px-6">
-             <div className="bg-mustard border-4 border-ink p-12 rounded text-center shadow-[10px_10px_0_theme(colors.ink)]">
-                <h2 className="font-display text-4xl sm:text-6xl mb-6 uppercase drop-shadow-[3px_3px_0_theme(colors.white)]">Reserve Now</h2>
-                <p className="max-w-xl mx-auto font-medium text-lg mb-10 leading-relaxed">
-                  {lang === 'en' ? "We're a walk-in friendly joint, but groups of 3+ should book ahead!" : "ランチタイムはウォークイン大歓迎！夜の営業や3名以上のグループはご予約をおすすめします。"}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                   <button className="bg-diner-red text-white border-3 border-ink px-8 py-4 font-display tracking-widest uppercase hover:translate-x-1 hover:translate-y-1 hover:shadow-[3px_3px_0_theme(colors.ink)] transition-all flex items-center justify-center gap-3">
-                      <Instagram className="w-5 h-5" /> Instagram DM
-                   </button>
-                   <button className="bg-white text-ink border-3 border-ink px-8 py-4 font-display tracking-widest uppercase hover:translate-x-1 hover:translate-y-1 transition-all">
-                      {lang === 'en' ? 'Call Us' : '電話で予約'}
-                   </button>
-                </div>
-             </div>
-          </div>
-        </section>
-      </main>
-
-      <Footer lang={lang} />
-      <div className="h-2.5 stripes-bg" />
-    </div>
+    <HelmetProvider>
+      <AppContent lang={lang} setLang={setLang} />
+    </HelmetProvider>
   );
 }
