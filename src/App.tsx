@@ -181,7 +181,7 @@ const Hero = ({ lang }: { lang: Language }) => {
               {t.hero_badge}
             </span>
             
-            <h1 className="mt-6 mb-6 font-display text-4xl sm:text-6xl xl:text-7xl leading-none tracking-tight">
+            <h1 className="mt-6 mb-6 font-display text-5xl sm:text-7xl xl:text-8xl leading-none tracking-tight">
               <span className="text-diner-red drop-shadow-[5px_5px_0_theme(colors.mustard)]">
                 AMERICAN
               </span><br />
@@ -388,11 +388,16 @@ const VisitSection = ({ lang }: { lang: Language }) => {
                 </div>
               </div>
               <div className="h-48 rounded-lg overflow-hidden border-2 border-white/20 sm:block hidden">
-                 {/* Map Placeholder */}
-                 <div className="w-full h-full bg-ink relative flex items-center justify-center p-4">
-                    <img src="https://images.unsplash.com/photo-1541339907198-e08759df9a73?auto=format&fit=crop&q=80&w=600" className="absolute inset-0 w-full h-full object-cover opacity-60" alt="map" />
-                    <Star className="relative z-10 w-12 h-12 text-mustard fill-mustard animate-bounce" />
-                 </div>
+                 {/* Google Maps */}
+                 <iframe
+                   width="100%"
+                   height="100%"
+                   style={{ border: 0 }}
+                   loading="lazy"
+                   allowFullScreen={true}
+                   referrerPolicy="no-referrer-when-downgrade"
+                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3368.6598829047653!2d127.79044083541238!3d26.16023502098305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34e56f85b7697963%3A0x30a4a78c765edb8f!2sCAFE%26BAR%20GarageLife!5e0!3m2!1sja!2sjp!4v1234567890"
+                 />
               </div>
             </div>
           </div>
